@@ -35,7 +35,7 @@ public class ActivitiQuick extends ApplicationTests {
 
     private final String bpmnNameAndKey = "first";
 
-    /*见表，默认启动的时候就会建好表格*/
+    /*建表，默认启动的时候就会建好表格*/
     @Test
     public void createTable() {
 
