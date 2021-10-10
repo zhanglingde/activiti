@@ -1,0 +1,26 @@
+# DataSource Config
+spring:
+  datasource:
+    username: root
+    password: admin
+    url: jdbc:mysql://localhost:3306/db_activiti_web?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+#mybatis 插件
+mybatis-plus:
+    mapper-locations: classpath:mapper/**/*.xml
+    #实体扫描，多个package用逗号或者分号分隔
+    typeAliasesPackage: com.lzxuni.module.*.entity
+    global-config:
+      db-config:
+        id-type: auto
+      #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+      field-strategy: 2
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0
+      logic-delete-field: isDelete
+      #刷新mapper 调试神器
+      refresh-mapper: true
+    configuration:
+      map-underscore-to-camel-case: true
+      cache-enabled: false
+      call-setters-on-nulls: true

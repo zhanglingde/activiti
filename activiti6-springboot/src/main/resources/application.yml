@@ -1,0 +1,66 @@
+# Tomcat
+server:
+    tomcat:
+        uri-encoding: UTF-8
+        threads:
+          max: 1000
+          min-spare: 30
+    port: 2020
+spring:
+    application:
+      name: mashibing-activiti
+    mvc:
+      static-path-pattern: /static/**
+    profiles:
+        active: db
+    jmx:
+      default-domain: mashibing-activiti
+    jackson:
+      time-zone: GMT+8
+      date-format: yyyy-MM-dd HH:mm:ss
+    activiti:
+#      database-schema-update: drop-create
+      #      database-schema-update: false
+      #      database-schema-update: true
+      #      database-schema-update: create-drop
+      check-process-definitions: false
+#      historyLevel: none
+#      historyLevel: activity
+#       默认
+      historyLevel: audit
+#      historyLevel: full
+      db-history-used: true
+
+eureka:
+  client: #客户端注册进eureka服务列表内
+    service-url:
+      defaultZone: http://eureka9001.com:9001/eureka
+    instance:
+    instance-id: lzx-finacial-activiti
+    prefer-ip-address: true     #访问路径可以显示IP地址
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 90000
+ribbon:
+  ReadTimeout: 150000
+  ConnectTimeout: 100000
+info:
+  app.name: com.mashibing-activiticloud
+  company.name: www.mashibing.com
+  build.artifactId: activiti6-springboot
+  build.version: 1.0-SNAPSHOT
+#springboot 监控点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

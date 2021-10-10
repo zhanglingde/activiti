@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mashibing.activiti.web.module.system.mapper.UserMapper">
+    <select id="queryAllPerms" resultType="java.lang.String">
+        SELECT
+        a.CODE
+        FROM
+        sys_module a,
+        sys_role_module_ref b,
+        sys_user_role_ref c
+        <where>
+            a.id = b.module_id
+            AND b.role_id = c.role_id
+            AND a.type IN ( 2, 3, 4 )
+            AND c.user_id =#{userId}
+        </where>
+    </select>
+    <select id="getRoleCodeList"  resultType="java.lang.String">
+        select b.code from sys_user_role_ref a,sys_role b
+        <where>
+            and a.role_id=b.id
+            and a.user_id = #{userId}
+        </where>
+    </select>
+
+    <!--  根据用户id查询菜单列表-->
+    <select id="findMenuListByUserId" resultType="com.mashibing.activiti.web.module.system.entity.Module">
+        SELECT
+            c.id,c.icon,c.name,c.url,c.parent_Id
+        FROM
+            sys_user_role_ref a,
+            sys_role_module_ref b,
+            sys_module c
+        WHERE
+            a.role_Id = b.role_Id
+        AND b.module_id = c.id
+        AND c.parent_id != -1
+        AND a.user_id = #{userId}
+        AND c.type=1
+        ORDER BY c.id
+    </select>
+
+</mapper>

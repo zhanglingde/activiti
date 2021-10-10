@@ -1,0 +1,47 @@
+# Tomcat
+server:
+    tomcat:
+        uri-encoding: UTF-8
+        threads:
+          max: 1000
+          min-spare: 30
+    port: 80
+spring:
+    mvc:
+      static-path-pattern: /static/**
+    profiles:
+        active: db
+    jackson:
+      time-zone: GMT+8
+      date-format: yyyy-MM-dd HH:mm:ss
+
+eureka:
+  client:
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://eureka9001.com:9001/eureka/
+feign:
+  hystrix:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 90000
+ribbon:
+  ReadTimeout: 150000
+  ConnectTimeout: 100000
+
+#springboot 监控点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
