@@ -2,6 +2,6 @@
 spring:
   datasource:
     username: root
-    password: admin
-    url: jdbc:mysql://localhost:3306/db_activiti6?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    password: root
+    url: jdbc:mysql://121.37.185.192:3307/db_activiti6?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver

@@ -141,6 +141,8 @@ public class ProcessDefinitionTest extends ApplicationTests {
         System.out.println("流程定义ID\t" + processInstance.getProcessDefinitionId());
         System.out.println("流程定义key\t" + processInstance.getProcessDefinitionKey());
     }
+
+    // 流程启动
     @Test
     public void startByKeyAndTenantId(){
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKeyAndTenantId(bpmnNameAndKey, tenantId);
@@ -187,6 +189,7 @@ public class ProcessDefinitionTest extends ApplicationTests {
         }
     }
 
+    // 获取流程图片
     @Test
     public void getPic() throws Exception {
         String deploymentId = "1";
@@ -195,6 +198,7 @@ public class ProcessDefinitionTest extends ApplicationTests {
         FileCopyUtils.copy(inputStream, new FileOutputStream(new File("D:/123.png")));
     }
 
+    // 查询最新流程
     @Test
     public void findLatestVersion() {
         List<ProcessDefinition> definitions = repositoryService.createProcessDefinitionQuery()
@@ -217,10 +221,11 @@ public class ProcessDefinitionTest extends ApplicationTests {
     }
 
     @Test
-    public void fingBpmnModel() {
+    public void findBpmnModel() {
         String processDefinitionId = "first:1:4";
-        //获取bpmnModel对象
+        //获取bpmnModel对象，描述节点、连接对象
         BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinitionId);
+        // 断点
         Map<String, GraphicInfo> locationMap = bpmnModel.getLocationMap();
         for (Map.Entry<String, GraphicInfo> entry : locationMap.entrySet()) {
             System.out.println(entry.getKey());
@@ -240,12 +245,14 @@ public class ProcessDefinitionTest extends ApplicationTests {
                 .processDefinitionKey(bpmnNameAndKey)
                 .latestVersion()
                 .singleResult();
+        // 流程是否被挂起
         boolean suspended = processDefinition.isSuspended();
         System.out.println(suspended ? "流程被暂停状态" : "流程激活状态");
         String processDefinitionId = processDefinition.getId();
         if(suspended){
             System.out.println("流程定义："+processDefinitionId+"当前暂停");
         }else{
+            // 流程不是暂停状态，将流程暂停
             repositoryService.suspendProcessDefinitionById(processDefinitionId,true,null);
             System.out.println("流程定义："+processDefinitionId+"挂起");
         }
