@@ -12,6 +12,11 @@
     <artifactId>activiti6-springboot</artifactId>
     <dependencies>
         <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.mashibing.activiti</groupId>
             <artifactId>activiti-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>

@@ -18,7 +18,9 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * <p></p>
+ * <p>
+ *     流程实例
+ * </p>
  *
  * @author 孙志强
  * @date 2020-07-21 21:13
@@ -35,6 +37,7 @@ public class ProcessInstanceTest extends ApplicationTests {
     private HistoryService historyService;
     private final String bpmnNameAndKey = "first";
 
+    // 流程实例重新部署
     @Test
     public void deployment() {
         String bpmnName = "first";
@@ -52,6 +55,7 @@ public class ProcessInstanceTest extends ApplicationTests {
         System.out.println("部署租户tenantID\t"+deployment.getTenantId());
         System.out.println("部署时间\t"+deployment.getDeploymentTime());
     }
+
     @Test
     public void start() {
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(bpmnNameAndKey);
@@ -61,6 +65,7 @@ public class ProcessInstanceTest extends ApplicationTests {
         System.out.println("启动成功");
     }
 
+    // 查看当前任务（个人待办）
     @Test
     public void findMyTask(){
         String assignee = "李四";
@@ -79,14 +84,17 @@ public class ProcessInstanceTest extends ApplicationTests {
         }
     }
 
+    // 完成任务，完成任务后，张三查询不到当前任务，李四可以查询到当前任务
     @Test
-    public void compleTask() {
-        String taskId = "5002";
+    public void completeTask() {
+        String taskId = "4e88864e-2bf3-11ec-bce7-9e96ca6eba6f";
+        // 流程变量
         taskService.complete(taskId);
         System.out.println("任务完成");
     }
 
 
+    // 查询历史任务
     @Test
     public void findHistoryTask() {
         String assignee = "张三";
@@ -109,6 +117,8 @@ public class ProcessInstanceTest extends ApplicationTests {
             System.out.println(processInstance.getId()+"\t"+processInstance.getProcessDefinitionId());
         }
     }
+
+    // 查询历史流程实例
     @Test
     public void findHistoryHinst(){
         List<HistoricProcessInstance> list = historyService.createHistoricProcessInstanceQuery()
@@ -118,6 +128,8 @@ public class ProcessInstanceTest extends ApplicationTests {
             System.out.println(historicProcessInstance.getId()+"\t"+historicProcessInstance.getProcessDefinitionId());
         }
     }
+
+    // 当前正在执行的任务
     @Test
     public void findRunExecute(){
         List<Execution> list = runtimeService.createExecutionQuery()
@@ -127,6 +139,8 @@ public class ProcessInstanceTest extends ApplicationTests {
             System.out.println(execution.getId()+"\t"+execution.getActivityId());
         }
     }
+
+    // 查询流程是否结束
     @Test
     public void isProcessEnd() {
         String processInstanceId = "2501";
@@ -135,5 +149,6 @@ public class ProcessInstanceTest extends ApplicationTests {
                 .count();
         System.out.println(count>0?"路程未结束":"流程已经结束");
     }
+
 
 }

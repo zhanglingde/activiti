@@ -71,11 +71,12 @@ public class PersonTask3Test extends ApplicationTests {
     }
 
     @Test
-    public void compleTask() {
+    public void completeTask() {
         String taskId = "2505";
         taskService.complete(taskId);
     }
 
+    // 设置多个候选人
     @Test
     public void setAssignee() {
         String taskId = "2505";
@@ -83,7 +84,7 @@ public class PersonTask3Test extends ApplicationTests {
         taskService.setAssignee(taskId, assgignee);
     }
 
-    /* 委派 */
+    /* 委派 个人没有时间，委托其他人处理*/
     @Test
     public void delegateTask() {
         String taskId = "2505";

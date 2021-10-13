@@ -5,3 +5,4 @@ spring:
     password: root
     url: jdbc:mysql://121.37.185.192:3307/db_activiti6?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
