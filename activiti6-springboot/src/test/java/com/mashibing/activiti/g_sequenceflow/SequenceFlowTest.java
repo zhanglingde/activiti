@@ -16,7 +16,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <p></p>
+ * <p>
+ *     分支流程
+ * </p>
  *
  * @author 孙志强
  * @date 2020-07-27 22:33
@@ -52,9 +54,10 @@ public class SequenceFlowTest extends ApplicationTests {
         System.out.println("流程定义ID\t"+processInstance.getProcessDefinitionId());
         System.out.println("流程定义KEY\t"+processInstance.getProcessDefinitionKey());
     }
+
     @Test
     public void findMyTask(){
-        String assignee = "张三";
+        String assignee = "李四";
         List<Task> taskList = taskService.createTaskQuery()
                 .taskAssignee(assignee)
                 .list();
@@ -70,9 +73,10 @@ public class SequenceFlowTest extends ApplicationTests {
         }
     }
 
+    // 完成任务，根据参数决定走哪一个流程
     @Test
     public void compleTask() {
-        String taskId = "2505";
+        String taskId = "a34c7c94-2c05-11ec-bccc-9a8cbbc66dc5";
         Map<String , Object> variables = new HashMap<>();
 //        message=='不重要'
         variables.put("message", "重要");

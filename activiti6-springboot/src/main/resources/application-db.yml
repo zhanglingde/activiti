@@ -1,7 +1,8 @@
 # DataSource Config
 spring:
   datasource:
-    username: root
-    password: admin
-    url: jdbc:mysql://localhost:3306/db_activiti6?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://121.37.185.192:3307/db_activiti6?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
     driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: root

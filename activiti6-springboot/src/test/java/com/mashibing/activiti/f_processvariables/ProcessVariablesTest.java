@@ -52,6 +52,8 @@ public class ProcessVariablesTest extends ApplicationTests {
         System.out.println("部署租户tenantID\t"+deployment.getTenantId());
         System.out.println("部署时间\t"+deployment.getDeploymentTime());
     }
+
+    // 启动一个流程实例
     @Test
     public void start() {
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(bpmnNameAndKey);
@@ -77,19 +79,24 @@ public class ProcessVariablesTest extends ApplicationTests {
             System.out.println("=======");
         }
     }
+
     @Test
     public void setVariables() {
-        String taskId = "7502";
+        String taskId = "cf53a7ec-2bf9-11ec-888b-9e96ca6eba6f";
 
-        taskService.setVariableLocal(taskId, "请假天数", 1);
+
+        // Local 在哪个节点的时候绑定，只有在那个节点才能查到，这里在张三处理的时候绑定，李四处理的时候查询不到
+        taskService.setVariableLocal(taskId, "请假天数", 2);
         taskService.setVariable(taskId, "请假日期", new Date());
-        taskService.setVariable(taskId, "请假原因", "不想上班");
+        taskService.setVariable(taskId, "请假原因", "不想上班2");
+
         System.out.println("设置流程变量成功");
     }
 
     @Test
     public void getVariables() {
-        String taskId = "7502";
+//        String taskId = "e25e258e-2bf7-11ec-9afc-9e96ca6eba6f";
+        String taskId = "cf53a7ec-2bf9-11ec-888b-9e96ca6eba6f";
         Integer days = (Integer) taskService.getVariable(taskId, "请假天数");
         Date date = (Date) taskService.getVariable(taskId, "请假日期");
         String reason = (String) taskService.getVariable(taskId, "请假原因");
@@ -104,8 +111,8 @@ public class ProcessVariablesTest extends ApplicationTests {
     }
 
     @Test
-    public void compleTask() {
-        String taskId = "2505";
+    public void completeTask() {
+        String taskId = "e25e258e-2bf7-11ec-9afc-9e96ca6eba6f";
         taskService.complete(taskId);
     }
 
@@ -121,7 +128,7 @@ public class ProcessVariablesTest extends ApplicationTests {
 
     @Test
     public void findHistoryVariable() {
-        String processInstanceId = "2501";
+        String processInstanceId = "e25aca2a-2bf7-11ec-9afc-9e96ca6eba6f";
         List<HistoricVariableInstance> list = historyService.createHistoricVariableInstanceQuery()
                 .processInstanceId(processInstanceId)
                 .list();
